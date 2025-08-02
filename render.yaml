@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: hackrx-document-qa
+    env: python
+    plan: starter
+    buildCommand: "./build.sh"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1"
+    healthCheckPath: "/hackrx/health"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: BEARER_TOKEN
+        sync: false
+        generateValue: true
+    autoDeploy: false
